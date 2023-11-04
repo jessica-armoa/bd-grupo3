@@ -35,3 +35,17 @@ insert into productos (producto_id, marca_id, tipo_id,descripcion,es_servicio,pr
 insert into productos (producto_id, marca_id, tipo_id,descripcion,es_servicio,precio_unitario,iva) values (8,8,7,'Corte femenino largo 1',1, 45000, 0.05);
 insert into productos (producto_id, marca_id, tipo_id,descripcion,es_servicio,precio_unitario,iva) values (9,8,7,'Corte femenino largo 2',1, 60000, 0.05);
 insert into productos (producto_id, marca_id, tipo_id,descripcion,es_servicio,precio_unitario,iva) values (10,8,7,'Corte masculino',1, 60000, 0.05);
+
+/************************************/
+/*         TABLA STOCKS       */
+/************************************/
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(1,2,1,3);
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(2,2,2,3);
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(3,2,3,3);
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(4,2,4,2);
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(5,2,5,2);
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(6,1,1,5);
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(7,1,2,8);
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(8,1,3,5);
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(9,1,4,6);
+insert into stocks(stock_id,deposito_id, producto_id,cantidad_producto) values(10,1,5,6);

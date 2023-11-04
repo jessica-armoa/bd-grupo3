@@ -46,4 +46,3 @@ insert into tipos (tipo_id, tipo) values(6,'Baño de crema');
 insert into tipos (tipo_id, tipo) values(7,'Corte');
 
 
-
