@@ -17,6 +17,7 @@ código y descripción del producto, cantidad y precio unitario.(1)*/
 
 
 
+
 /* 3.
 Informe de servicios concluidos a facturar, desplegar los atributos:
 Numero de servicio, fecha, código y nombre del cliente, monto total de los servicios realizados y
@@ -39,3 +40,46 @@ Ranking de Clientes (Clientes a los que más se facturan). (2)*/
 Clientes que no registraron servicios por rango de fecha:
 Codigo y nombre del cliente, última fecha de servicio realizado. (3)
 (Resolver con procedimiento almacenado)*/
+
+
+SELECT
+	P.NOMBRE,
+	C.CLIENTE_ID,
+	F.FECHA,
+	SR.DESCRIPCION,
+	DF.PRODUCTO_ID,
+	PR.DESCRIPCION,
+	DF.CANTIDAD,
+	DF.PRECIO_UNITARIO
+FROM FACTURAS AS F
+(SELECT NOMBRE 
+FROM PERSONAS) P
+(SELECT CLIENTE_ID 
+FROM CLIENTES) C
+(SELECT DESCRIPCION 
+FROM SERVICIOS_REALIZADOS) SR,
+(SELECT PRODUCTO_ID, CANTIDAD, PRECIO_UNITARIO 
+FROM DETALLES_FACTURAS) DF
+(SELECT DESCRIPCION 
+FROM PRODUCTOS)PR
+WHERE (CLIENTES.CLIENTES_ID = FACTURAS.CLIENTES_ID)
+AND 
+(CLIENTES.PERSONA_ID = PERSONAS.PERSONA_ID)
+AND
+(FACTURAS.FACTURA_ID = DETALLES_FACTURAS.FACTURA_ID)
+AND
+(SERVICIOS_REALIZADOS.SERVICIO_REALIZADO_ID = FACTURAS.SERVICIO_REALIZADO_ID)
+AND
+(PRODUCTOS.PRODUCTO_ID = DETALLES_FACTURAS.PRODUCTO_ID)
+AND 
+(F.FECHA BETWEEN '05-11-2023' AND '10-11-2023')
+AND
+(C.CLIENTE_ID BETWEEN 1 AND 3)
+GROUP BY 	P.NOMBRE,
+	C.CLIENTE_ID,
+	F.FECHA,
+	SR.DESCRIPCION,
+	DF.PRODUCTO_ID,
+	PR.DESCRIPCION,
+	DF.CANTIDAD,
+	DF.PRECIO_UNITARIO;
