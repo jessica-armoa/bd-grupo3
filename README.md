@@ -15,8 +15,7 @@ cliente, y el detalle de los productos utilizados: producto, cantidad, precio un
 otros.
 
 La empresa trabaja bajo ciertas políticas que se detallan a continuación:
-- El stock de mercaderías es manejado por Depósitos, tiene un depósito general y el
-salon. (2)
+- El stock de mercaderías es manejado por Depósitos, tiene un depósito general y el salon. (2)
 - La empresa realiza comprobantes de transferencias de productos entre depósitos
 para el movimiento logístico de productos, en donde se deben registrar: depósito
 origen y depósito destino, encargado de realizar la operación y el autorizante de esa

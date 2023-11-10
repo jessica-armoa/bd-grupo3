@@ -3,8 +3,14 @@
 /* Created on:     10/27/2023 3:31:00 PM                        */
 /*==============================================================*/
 
-CREATE DATABASE grupo3;
+IF NOT EXISTS (SELECT * FROM sys.databases
+               WHERE name = 'grupo3')
+BEGIN
+   CREATE DATABASE grupo3;
+END
+
 USE grupo3;
+
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
@@ -57,9 +63,9 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('EMPLEADO') and o.name = 'FK_EMPLEADO_RELATIONS_PERSONAS')
-alter table EMPLEADO
-   drop constraint FK_EMPLEADO_RELATIONS_PERSONAS
+   where r.fkeyid = object_id('EMPLEADOS') and o.name = 'FK_EMPLEADOS_RELATIONS_PERSONAS')
+alter table EMPLEADOS
+   drop constraint FK_EMPLEADOS_RELATIONS_PERSONAS
 go
 
 if exists (select 1
@@ -141,7 +147,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('CLIENTES')
+            where  id    = object_id('CLIENTES')
             and   name  = 'RELATIONSHIP_13_FK'
             and   indid > 0
             and   indid < 255)
@@ -150,21 +156,21 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('CLIENTES')
+            where  id = object_id('CLIENTES')
             and   type = 'U')
    drop table CLIENTES
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('DEPOSITOS')
+            where  id = object_id('DEPOSITOS')
             and   type = 'U')
    drop table DEPOSITOS
 go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('DETALLES_FACTURAS')
+            where  id    = object_id('DETALLES_FACTURAS')
             and   name  = 'RELATIONSHIP_23_FK'
             and   indid > 0
             and   indid < 255)
@@ -173,7 +179,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('DETALLES_FACTURAS')
+            where  id    = object_id('DETALLES_FACTURAS')
             and   name  = 'RELATIONSHIP_18_FK'
             and   indid > 0
             and   indid < 255)
@@ -182,14 +188,14 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('DETALLES_FACTURAS')
+            where  id = object_id('DETALLES_FACTURAS')
             and   type = 'U')
    drop table DETALLES_FACTURAS
 go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('DETALLES_PRODUCTOS_UTILIZADOS')
+            where  id    = object_id('DETALLES_PRODUCTOS_UTILIZADOS')
             and   name  = 'RELATIONSHIP_12_FK'
             and   indid > 0
             and   indid < 255)
@@ -198,7 +204,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('DETALLES_PRODUCTOS_UTILIZADOS')
+            where  id    = object_id('DETALLES_PRODUCTOS_UTILIZADOS')
             and   name  = 'RELATIONSHIP_8_FK'
             and   indid > 0
             and   indid < 255)
@@ -207,14 +213,14 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('DETALLES_PRODUCTOS_UTILIZADOS')
+            where  id = object_id('DETALLES_PRODUCTOS_UTILIZADOS')
             and   type = 'U')
    drop table DETALLES_PRODUCTOS_UTILIZADOS
 go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('DETALLES_TRANSFERENCIAS')
+            where  id    = object_id('DETALLES_TRANSFERENCIAS')
             and   name  = 'RELATIONSHIP_22_FK'
             and   indid > 0
             and   indid < 255)
@@ -223,7 +229,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('DETALLES_TRANSFERENCIAS')
+            where  id    = object_id('DETALLES_TRANSFERENCIAS')
             and   name  = 'RELATIONSHIP_21_FK'
             and   indid > 0
             and   indid < 255)
@@ -232,30 +238,30 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('DETALLES_TRANSFERENCIAS')
+            where  id = object_id('DETALLES_TRANSFERENCIAS')
             and   type = 'U')
    drop table DETALLES_TRANSFERENCIAS
 go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('EMPLEADO')
+            where  id    = object_id('EMPLEADOS')
             and   name  = 'RELATIONSHIP_15_FK'
             and   indid > 0
             and   indid < 255)
-   drop index EMPLEADO.RELATIONSHIP_15_FK
+   drop index EMPLEADOS.RELATIONSHIP_15_FK
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('EMPLEADO')
+            where  id = object_id('EMPLEADOS')
             and   type = 'U')
-   drop table EMPLEADO
+   drop table EMPLEADOS
 go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('FACTURAS')
+            where  id    = object_id('FACTURAS')
             and   name  = 'RELATIONSHIP_20_FK'
             and   indid > 0
             and   indid < 255)
@@ -264,7 +270,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('FACTURAS')
+            where  id    = object_id('FACTURAS')
             and   name  = 'RELATIONSHIP_19_FK'
             and   indid > 0
             and   indid < 255)
@@ -273,28 +279,28 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('FACTURAS')
+            where  id = object_id('FACTURAS')
             and   type = 'U')
    drop table FACTURAS
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('MARCAS')
+            where  id = object_id('MARCAS')
             and   type = 'U')
    drop table MARCAS
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('PERSONAS')
+            where  id = object_id('PERSONAS')
             and   type = 'U')
    drop table PERSONAS
 go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('PRODUCTOS')
+            where  id    = object_id('PRODUCTOS')
             and   name  = 'REFERENCE_2_FK'
             and   indid > 0
             and   indid < 255)
@@ -303,7 +309,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('PRODUCTOS')
+            where  id    = object_id('PRODUCTOS')
             and   name  = 'REFERENCE_1_FK'
             and   indid > 0
             and   indid < 255)
@@ -312,14 +318,14 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('PRODUCTOS')
+            where  id = object_id('PRODUCTOS')
             and   type = 'U')
    drop table PRODUCTOS
 go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('SERVICIOS_REALIZADOS')
+            where  id    = object_id('SERVICIOS_REALIZADOS')
             and   name  = 'RELATIONSHIP_14_FK'
             and   indid > 0
             and   indid < 255)
@@ -328,14 +334,14 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('SERVICIOS_REALIZADOS')
+            where  id = object_id('SERVICIOS_REALIZADOS')
             and   type = 'U')
    drop table SERVICIOS_REALIZADOS
 go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('STOCKS')
+            where  id    = object_id('STOCKS')
             and   name  = 'REFERENCE_4_FK'
             and   indid > 0
             and   indid < 255)
@@ -344,7 +350,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('STOCKS')
+            where  id    = object_id('STOCKS')
             and   name  = 'REFERENCE_3_FK'
             and   indid > 0
             and   indid < 255)
@@ -353,21 +359,21 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('STOCKS')
+            where  id = object_id('STOCKS')
             and   type = 'U')
    drop table STOCKS
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('TIPOS')
+            where  id = object_id('TIPOS')
             and   type = 'U')
    drop table TIPOS
 go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('TRANSFERENCIAS')
+            where  id    = object_id('TRANSFERENCIAS')
             and   name  = 'RELATIONSHIP_17_FK'
             and   indid > 0
             and   indid < 255)
@@ -376,7 +382,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('TRANSFERENCIAS')
+            where  id    = object_id('TRANSFERENCIAS')
             and   name  = 'RELATIONSHIP_16_FK'
             and   indid > 0
             and   indid < 255)
@@ -385,7 +391,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('TRANSFERENCIAS')
+            where  id    = object_id('TRANSFERENCIAS')
             and   name  = 'RELATIONSHIP_10_FK'
             and   indid > 0
             and   indid < 255)
@@ -394,7 +400,7 @@ go
 
 if exists (select 1
             from  sysindexes
-           where  id    = object_id('TRANSFERENCIAS')
+            where  id    = object_id('TRANSFERENCIAS')
             and   name  = 'RELATIONSHIP_9_FK'
             and   indid > 0
             and   indid < 255)
@@ -403,7 +409,7 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('TRANSFERENCIAS')
+            where  id = object_id('TRANSFERENCIAS')
             and   type = 'U')
    drop table TRANSFERENCIAS
 go
@@ -412,7 +418,7 @@ go
 /* Table: CLIENTES                                              */
 /*==============================================================*/
 create table CLIENTES (
-   CLIENTE_ID           int                  not null,
+   CLIENTE_ID           int identity(1,1)    not null,
    PERSONA_ID           int                  null,
    RUC                  varchar(20)          null,
    constraint PK_CLIENTES primary key nonclustered (CLIENTE_ID)
@@ -431,7 +437,7 @@ go
 /* Table: DEPOSITOS                                             */
 /*==============================================================*/
 create table DEPOSITOS (
-   DEPOSITO_ID          int                  not null,
+   DEPOSITO_ID          int identity(1,1)    not null,
    TIPO_DEPOSITO        varchar(255)         null,
    constraint PK_DEPOSITOS primary key nonclustered (DEPOSITO_ID)
 )
@@ -441,7 +447,7 @@ go
 /* Table: DETALLES_FACTURAS                                     */
 /*==============================================================*/
 create table DETALLES_FACTURAS (
-   DETALLE_FACTURA_ID   int                  not null,
+   DETALLE_FACTURA_ID   int identity(1,1)    not null,
    FACTURA_ID           int                  null,
    PRODUCTO_ID          int                  null,
    CANTIDAD             int                  not null,
@@ -471,9 +477,9 @@ go
 /* Table: DETALLES_PRODUCTOS_UTILIZADOS                         */
 /*==============================================================*/
 create table DETALLES_PRODUCTOS_UTILIZADOS (
-   DETALLE_ID           int                  not null,
+   DETALLE_ID           int identity(1,1)    not null,
    PRODUCTO_ID          int                  not null,
-   SERVICIO_REALIZADO_ID int                  null,
+   SERVICIO_REALIZADO_ID int                 null,
    CANTIDAD             int                  null,
    PRECIO_UNITARIO      numeric              null,
    IVA                  decimal(4,3)         null,
@@ -501,10 +507,10 @@ go
 /* Table: DETALLES_TRANSFERENCIAS                               */
 /*==============================================================*/
 create table DETALLES_TRANSFERENCIAS (
-   DETALLE_TRANSFERENCIA_ID int                  not null,
-   TRANFERENCIA_ID      int                  null,
-   PRODUCTO_ID          int                  null,
-   CANTIDAD             int                  null,
+   DETALLE_TRANSFERENCIA_ID int identity(1,1)    not null,
+   TRANFERENCIA_ID          int                  null,
+   PRODUCTO_ID              int                  null,
+   CANTIDAD                 int                  null,
    constraint PK_DETALLES_TRANSFERENCIAS primary key nonclustered (DETALLE_TRANSFERENCIA_ID)
 )
 go
@@ -528,8 +534,8 @@ go
 /*==============================================================*/
 /* Table: EMPLEADO                                              */
 /*==============================================================*/
-create table EMPLEADO (
-   EMPLEADO_ID          int                  not null,
+create table EMPLEADOS (
+   EMPLEADO_ID          int identity(1,1)    not null,
    PERSONA_ID           int                  null,
    CARGO                varchar(255)         not null,
    constraint PK_EMPLEADO primary key nonclustered (EMPLEADO_ID)
@@ -539,7 +545,7 @@ go
 /*==============================================================*/
 /* Index: RELATIONSHIP_15_FK                                    */
 /*==============================================================*/
-create index RELATIONSHIP_15_FK on EMPLEADO (
+create index RELATIONSHIP_15_FK on EMPLEADOS (
 PERSONA_ID ASC
 )
 go
@@ -548,9 +554,9 @@ go
 /* Table: FACTURAS                                              */
 /*==============================================================*/
 create table FACTURAS (
-   FACTURA_ID           int                  not null,
+   FACTURA_ID           int identity(1,1)    not null,
    CLIENTE_ID           int                  null,
-   SERVICIO_REALIZADO_ID int                  null,
+   SERVICIO_REALIZADO_ID int                 null,
    FECHA                datetime             null,
    TOTAL                int                  null,
    TIPO                 char(1)              null,
@@ -578,7 +584,7 @@ go
 /* Table: MARCAS                                                */
 /*==============================================================*/
 create table MARCAS (
-   MARCA_ID             int                  not null,
+   MARCA_ID             int identity(1,1)    not null,
    MARCA                varchar(255)         not null,
    constraint PK_MARCAS primary key nonclustered (MARCA_ID)
 )
@@ -588,7 +594,7 @@ go
 /* Table: PERSONAS                                              */
 /*==============================================================*/
 create table PERSONAS (
-   PERSONA_ID           int                  not null,
+   PERSONA_ID           int identity(1,1)    not null,
    NOMBRE               varchar(255)         not null,
    DIRECCION            varchar(255)         null,
    TELEFONO             varchar(255)         not null,
@@ -601,7 +607,7 @@ go
 /* Table: PRODUCTOS                                             */
 /*==============================================================*/
 create table PRODUCTOS (
-   PRODUCTO_ID          int                  not null,
+   PRODUCTO_ID          int identity(1,1)    not null,
    MARCA_ID             int                  null,
    TIPO_ID              int                  null,
    DESCRIPCION          varchar(255)         not null,
@@ -632,11 +638,11 @@ go
 /* Table: SERVICIOS_REALIZADOS                                  */
 /*==============================================================*/
 create table SERVICIOS_REALIZADOS (
-   SERVICIO_REALIZADO_ID int                  not null,
+   SERVICIO_REALIZADO_ID int identity(1,1)   not null,
    CLIENTE_ID           int                  null,
    FECHA                datetime             not null,
    DESCRIPCION          varchar(255)         null,
-   FATURADO             bit                  null,
+   FACTURADO            bit                  null,
    constraint PK_SERVICIOS_REALIZADOS primary key nonclustered (SERVICIO_REALIZADO_ID)
 )
 go
@@ -653,7 +659,7 @@ go
 /* Table: STOCKS                                                */
 /*==============================================================*/
 create table STOCKS (
-   STOCK_ID             int                  not null,
+   STOCK_ID             int identity(1,1)    not null,
    DEPOSITO_ID          int                  null,
    PRODUCTO_ID          int                  null,
    CANTIDAD_PRODUCTO    int                  not null,
@@ -681,7 +687,7 @@ go
 /* Table: TIPOS                                                 */
 /*==============================================================*/
 create table TIPOS (
-   TIPO_ID              int                  not null,
+   TIPO_ID              int identity(1,1)                 not null,
    TIPO                 varchar(255)         not null,
    constraint PK_TIPOS primary key nonclustered (TIPO_ID)
 )
@@ -691,7 +697,7 @@ go
 /* Table: TRANSFERENCIAS                                        */
 /*==============================================================*/
 create table TRANSFERENCIAS (
-   TRANFERENCIA_ID      int                  not null,
+   TRANFERENCIA_ID      int identity(1,1)    not null,
    DEPOSITO_ORIGEN_ID   int                  not null,
    DEPOSITO_DESTINO_ID  int                  not null,
    ENCARGADO_ID         int                  null,
@@ -768,8 +774,8 @@ alter table DETALLES_TRANSFERENCIAS
       references TRANSFERENCIAS (TRANFERENCIA_ID)
 go
 
-alter table EMPLEADO
-   add constraint FK_EMPLEADO_RELATIONS_PERSONAS foreign key (PERSONA_ID)
+alter table EMPLEADOS
+   add constraint FK_EMPLEADOS_RELATIONS_PERSONAS foreign key (PERSONA_ID)
       references PERSONAS (PERSONA_ID)
 go
 
@@ -815,12 +821,12 @@ go
 
 alter table TRANSFERENCIAS
    add constraint FK_TRANSFER_RELATIONS_EMP foreign key (ENCARGADO_ID)
-      references EMPLEADO (EMPLEADO_ID)
+      references EMPLEADOS (EMPLEADO_ID)
 go
 
 alter table TRANSFERENCIAS
    add constraint FK_TRANSFER_RELATIONS_EMPLEA foreign key (AUTORIZANTE_ID)
-      references EMPLEADO (EMPLEADO_ID)
+      references EMPLEADOS (EMPLEADO_ID)
 go
 
 alter table TRANSFERENCIAS
