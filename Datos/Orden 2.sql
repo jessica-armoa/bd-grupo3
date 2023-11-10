@@ -32,7 +32,9 @@ insert into clientes (persona_id, ruc) values (24,4965587);
 insert into clientes (persona_id, ruc) values (25,4965588);
 insert into clientes (persona_id, ruc) values (26,4965589);
 
-SELECT * FROM clientes;
+SELECT c.cliente_id, p.nombre, p.correo_electronico, c.ruc
+FROM clientes c
+  join personas p on p.persona_id = c.persona_id;
 
 /************************************/
 /*         TABLA EMPLEADOS          */
@@ -42,7 +44,9 @@ insert into empleados (persona_id, cargo) values (28,'autorizante')
 insert into empleados (persona_id, cargo) values (29,'encargado')
 insert into empleados (persona_id, cargo) values (30,'autorizante')
 
-SELECT * FROM empleados;
+SELECT e.empleado_id, p.nombre, p.correo_electronico, e.cargo
+FROM empleados e
+  join personas p on p.persona_id = e.persona_id;
 
 /************************************/
 /*         TABLA PRODUCTOS          */
@@ -83,13 +87,15 @@ insert into productos (marca_id, tipo_id, descripcion, es_servicio, precio_unita
 insert into productos (marca_id, tipo_id, descripcion, es_servicio, precio_unitario, iva) values (4, 2, 'Wella Professionals Fusion Intense Repair Mask - Tratamiento con Queratina 150 ml', 0, 230000, 0.1);
 insert into productos (marca_id, tipo_id, descripcion, es_servicio, precio_unitario, iva) values (3, 2, 'Revlon Professional Uniq One Supermask - Tratamiento con Queratina 300 ml', 0, 220000, 0.1);
 
-/*
-SELECT m.marca, t.tipo, p.descripcion
+
+SELECT p.producto_id, m.marca, t.tipo, p.descripcion
 FROM productos p
   JOIN marcas m ON p.marca_id = m.marca_id
   JOIN tipos t ON p.tipo_id = t.tipo_id
-WHERE p.es_servicio = 0;
-*/
+WHERE p.es_servicio = 0
+ORDER BY p.producto_id;
+
+
 
 ----------- Servicios
 insert into productos (marca_id, tipo_id, descripcion, es_servicio, precio_unitario,iva) values (6, 5, 'Hidratacion profunda', 1, 50000, 0.05);
@@ -104,13 +110,14 @@ insert into productos (marca_id, tipo_id, descripcion, es_servicio, precio_unita
 insert into productos (marca_id, tipo_id, descripcion, es_servicio, precio_unitario,iva) values (6, 3, 'Mechas Californianas', 1, 120000, 0.05);
 insert into productos (marca_id, tipo_id, descripcion, es_servicio, precio_unitario,iva) values (6, 3, 'Claritos', 1, 120000, 0.05);
 
-/*
-SELECT m.marca, t.tipo, p.descripcion
+
+SELECT p.producto_id, m.marca, t.tipo, p.descripcion
 FROM productos p
   JOIN marcas m ON p.marca_id = m.marca_id
   JOIN tipos t ON p.tipo_id = t.tipo_id
-WHERE p.es_servicio = 1;
-*/
+WHERE p.es_servicio = 1
+ORDER BY p.producto_id;
+
 
 
 
@@ -162,3 +169,8 @@ insert into stocks (deposito_id, producto_id, cantidad_producto) values (2, 18, 
 insert into stocks (deposito_id, producto_id, cantidad_producto) values (2, 19, 1);
 insert into stocks (deposito_id, producto_id, cantidad_producto) values (2, 20, 4);
 insert into stocks (deposito_id, producto_id, cantidad_producto) values (2, 21, 3);
+
+SELECT s.stock_id, d.tipo_deposito as deposito, p.descripcion as producto, s.cantidad_producto as cantidad
+FROM stocks s
+  JOIN productos p ON s.producto_id = p.producto_id
+  JOIN depositos d ON s.deposito_id = d.deposito_id;
