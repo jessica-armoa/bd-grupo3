@@ -6,7 +6,20 @@ GO
 Monto del importe total de los servicios realizados en un
 rango de fecha (entre dos fechas), desplegar los
 atributos: fecha, tipo de servicio, importe total para esa fecha.(1)*/
+SELECT
+SR.FECHA,
+SR.DESCRIPCION,
+SUM(DPU.CANTIDAD*DPU.PRECIO_UNITARIO) TOTAL
+FROM SERVICIOS_REALIZADOS SR
+  JOIN DETALLES_PRODUCTOS_UTILIZADOS DPU ON SR.SERVICIO_REALIZADO_ID = DPU.SERVICIO_REALIZADO_ID
+WHERE
+SR.FECHA BETWEEN '2023-11-01 00:00:00' AND '2023-11-02 23:59:59'
 
+GROUP BY
+SR.FECHA,
+SR.DESCRIPCION,
+DPU.CANTIDAD,
+DPU.PRECIO_UNITARIO
 
 
 
