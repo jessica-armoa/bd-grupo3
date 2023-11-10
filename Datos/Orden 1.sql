@@ -76,4 +76,3 @@ insert into tipos (tipo) values('Peinado');
 
 SELECT * FROM tipos;
 
-
