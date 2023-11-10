@@ -20,7 +20,7 @@ SELECT * FROM servicios_realizados;
 insert into servicios_realizados
   (cliente_id, fecha, descripcion, facturado)
 values
-  (1, '2023-11-02 9:00:00', 'Morena iluminada, lavado y secado', 0);
+  (1, '2023-02-11 9:00:00', 'Morena iluminada, lavado y secado', 0);
 
 insert into detalles_productos_utilizados
   (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
@@ -42,7 +42,7 @@ values
 insert into servicios_realizados
   (cliente_id, fecha, descripcion, facturado)
 values
-  (3, '2023-11-02 12:00:00', 'Morena iluminada, lavado y secado', 0);
+  (3, '2023-02-11 12:00:00', 'Morena iluminada, lavado y secado', 0);
 
 insert into DETALLES_PRODUCTOS_UTILIZADOS
   (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
@@ -64,7 +64,7 @@ values
 insert into servicios_realizados
   (cliente_id, fecha, descripcion, facturado)
 values
-  (2, '2023-11-02 14:30:00', 'Corte masculino', 0);
+  (2, '2023-02-11 14:30:00', 'Corte masculino', 0);
 
 insert into DETALLES_PRODUCTOS_UTILIZADOS
   (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
@@ -76,7 +76,7 @@ values
 insert into servicios_realizados
   (cliente_id, fecha, descripcion, facturado)
 values
-  (2, '2023-11-02 16:30:00', 'Corte masculino', 0);
+  (2, '2023-02-11 16:30:00', 'Corte masculino', 0);
 
 insert into DETALLES_PRODUCTOS_UTILIZADOS
   (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
@@ -93,7 +93,7 @@ values
 insert into servicios_realizados
   (cliente_id, fecha, descripcion, facturado)
 values
-  (5, '2023-11-03 10:00:00', 'Lavado y Balayage', 0);
+  (5, '2023-03-11 10:00:00', 'Lavado y Balayage', 0);
 
 insert into DETALLES_PRODUCTOS_UTILIZADOS
   (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
@@ -115,7 +115,7 @@ values
 insert into servicios_realizados
   (cliente_id, fecha, descripcion, facturado)
 values
-  (18, '2023-11-03 11:00:00', 'Lavado y Balayage', 0);
+  (18, '2023-03-11 11:00:00', 'Lavado y Balayage', 0);
 
 insert into DETALLES_PRODUCTOS_UTILIZADOS
   (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
@@ -138,7 +138,7 @@ values
 insert into servicios_realizados
   (cliente_id, fecha, descripcion, facturado)
 values
-  (9, '2023-11-03 14:30:00', 'Corte masculino', 0);
+  (9, '2023-03-11 14:30:00', 'Corte masculino', 0);
 
 insert into DETALLES_PRODUCTOS_UTILIZADOS
   (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
@@ -150,7 +150,7 @@ values
 insert into servicios_realizados
   (cliente_id, fecha, descripcion, facturado)
 values
-  (13, '2023-11-03 16:30:00', 'Corte masculino', 0);
+  (13, '2023-03-11 16:30:00', 'Corte masculino', 0);
 
 insert into DETALLES_PRODUCTOS_UTILIZADOS
   (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
