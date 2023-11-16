@@ -5,8 +5,12 @@ GO
 /***********************************/
 /*	    	TABLA TRANSFERENCIA   	 */
 /***********************************/
-
-
+insert into TRANSFERENCIAS (TRANFERENCIA_ID, DEPOSITO_ORIGEN_ID,DEPOSITO_DESTINO_ID,AUTORIZANTE_ID,FECHA) 
+values 
+(1,1,2,1,'2023-02-11 9:00:00' )
+insert into TRANSFERENCIAS (TRANFERENCIA_ID, DEPOSITO_ORIGEN_ID,DEPOSITO_DESTINO_ID,AUTORIZANTE_ID,FECHA) 
+values 
+(2,2,1,2,'2023-03-11 16:00:00')
 
 /***********************************/
 /*	 	TABLA SERVICIOS REALIZADOS   */
