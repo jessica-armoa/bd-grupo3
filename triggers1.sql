@@ -12,7 +12,7 @@ go
 
 /*------------------TRIGGER QUE HACE LAS TRANSFERENCIAS------------------*/
 
-create trigger TR_detalles_transferencias
+create trigger TR_D_T
 on detalles_transferencias for insert
 AS
 update stocks set stocks.cantidad_producto = stocks.cantidad_producto - inserted.cantidad from inserted
@@ -30,7 +30,7 @@ inner join stocks on stocks.deposito_id = t.DEPOSITO_DESTINO_ID
 go
 
 /*------------------TRIGGER QUE ACTUALIZA EL STOCK AL REALIZAR UN SERVICIO------------------*/
-CREATE TRIGGER after_insert_detalle_productos
+CREATE TRIGGER TR_STOCKS_DPU
 ON detalles_productos_utilizados
 AFTER INSERT
 AS
