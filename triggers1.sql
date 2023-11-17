@@ -1,9 +1,15 @@
-create trigger TR_detalles_factura
-on detalles_factura for insert
-AS
-update stocks set stocks.cantidad_producto = stocks.cantidad_producto - inserted.cantidad from inserted
-inner join stocks on stocks.producto_id = inserted.producto_id;
-
+GO
+USE grupo3
+GO
+/*------------------TRIGGER QUE ACTUALIZA EL STOCK AL REALIZAR UN SERVICIO------------------*/
+CREATE TRIGGER TR_DETALLES_SERVICIOS_REALIZADOS
+ON DETALLES_PRODUCTOS_UTILIZADOS FOR INSERT 
+AS 
+UPDATE STOCKS SET STOCKS.CANTIDAD_PRODUCTO = STOCKS.CANTIDAD_PRODUCTO - inserted.cantidad from inserted
+JOIN STOCKS S ON S.PRODUCTO_ID = inserted.PRODUCTO_ID
+JOIN PRODUCTOS P ON P.PRODUCTO_ID = inserted.PRODUCTO_ID;
+go
+/*------------------TRIGGER QUE HACE LAS TRANSFERENCIAS------------------*/
 
 create trigger TR_detalles_transferencias
 on detalles_transferencias for insert
@@ -11,9 +17,70 @@ AS
 update stocks set stocks.cantidad_producto = stocks.cantidad_producto - inserted.cantidad from inserted
 inner join stocks on stocks.deposito_id = inserted.deposito_origen_id
 
-
-create trigger TR_detalles_transferencias2
+go
+create trigger TR_detalles_transferencias2h
 on detalles_transferencias for insert
 AS
 update stocks set stocks.cantidad_producto = stocks.cantidad_producto + inserted.cantidad from inserted
-inner join stocks on stocks.deposito_id = inserted.deposito_destino_id
+inner join stocks on stocks.deposito_id = inserted.deposito_destino_id;
+
+go
+
+/*------------------TRIGGER QUE ACTUALIZA EL STOCK AL REALIZAR UN SERVICIO------------------*/
+CREATE TRIGGER after_insert_detalle_productos
+ON detalles_productos_utilizados
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Actualizar la cantidad de productos en la tabla stocks
+    UPDATE stocks
+    SET cantidad_producto = stocks.cantidad_producto - i.cantidad
+    FROM stocks
+    INNER JOIN inserted i ON stocks.producto_id = i.producto_id;
+END
+
+/*------------------TRIGGER QUE ACTUALIZA FACTURADO O NO------------------*/
+
+GO
+CREATE TRIGGER after_insert_factura
+ON facturas
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Marcar como facturado en la tabla servicios_realizados
+    UPDATE sr
+    SET sr.facturado = 1
+    FROM servicios_realizados sr
+    INNER JOIN inserted i ON sr.servicio_realizado_id = i.servicio_realizado_id
+    WHERE sr.facturado = 0; -- Asegurar que el servicio no haya sido facturado previamente
+END;
+
+/*------------------TRIGGER DE TRANSFERENCIAS------------------*/
+GO
+CREATE TRIGGER after_insert_transferencia
+ON transferencias
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Actualizar la existencia en la tabla stocks para el depósito de origen
+    UPDATE s_origen
+    SET s_origen.cantidad_producto = s_origen.cantidad_producto - dt.cantidad
+    FROM stocks s_origen
+    INNER JOIN detalles_transferencias dt ON s_origen.deposito_id = dt.deposito_origen_id
+    INNER JOIN inserted i ON dt.transferencia_id = i.transferencia_id;
+
+    -- Actualizar la existencia en la tabla stocks para el depósito de destino
+    UPDATE s_destino
+    SET s_destino.cantidad_producto = s_destino.cantidad_producto + dt.cantidad
+    FROM stocks s_destino
+    INNER JOIN detalles_transferencias dt ON s_destino.deposito_id = dt.deposito_destino_id
+    INNER JOIN inserted i ON dt.transferencia_id = i.transferencia_id;
+END;
+
+
