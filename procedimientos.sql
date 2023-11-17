@@ -34,25 +34,6 @@ BEGIN
 END;
 GO
 
---pruebas
--- Crear una marca
-EXEC Crear_Marcas 'Marca Prueba';
-
--- Obtener el ID de la marca que acabamos de crear
-DECLARE @IDMarca INT;
-SELECT @IDMarca = MARCA_ID FROM MARCAS WHERE MARCA = 'Marca Prueba';
-
--- Modificar la marca
-EXEC Modificar_Marcas @IDMarca, 'Nueva Marca Prueba';
-
--- Eliminar la marca
-EXEC Eliminar_Marcas @IDMarca;
-
--- Verificaciones
-SELECT * FROM MARCAS WHERE MARCA = 'Marca Prueba';
-SELECT * FROM MARCAS WHERE MARCA_ID = @IDMarca;
-
-
 /************ Tabla TIPOS ***********/
 GO
 CREATE PROCEDURE Crear_Tipos
@@ -116,7 +97,7 @@ CREATE PROCEDURE Crear_Productos
   @tipo_id INT,
   @descripcion VARCHAR(255),
   @es_servicio BIT,
-  @precio_unitario NUMBER,
+  @precio_unitario NUMERIC,
   @iva DECIMAL(4,3)
 AS
 BEGIN
@@ -138,7 +119,7 @@ CREATE PROCEDURE Modificar_Productos
   @tipo_id INT,
   @descripcion VARCHAR(255),
   @es_servicio BIT,
-  @precio_unitario NUMBER,
+  @precio_unitario NUMERIC,
   @iva DECIMAL(4,3)
 AS
 BEGIN
@@ -206,7 +187,7 @@ CREATE PROCEDURE Modificar_Personas
   @CORREO_ELECTRONICO VARCHAR(255)
 AS
 BEGIN
-  UPDATE PERSONAS SET NOMBRE = @NOMBRE,DIRECCION = @DIRECCION,TELEFONO = @TELEFONO,CORREO_ELECTRONICO = @CORREO_ELECTRONICO WHERE PERSONA_ID = @ID
+  UPDATE PERSONAS SET NOMBRE = @NOMBRE, DIRECCION = @DIRECCION,TELEFONO = @TELEFONO, CORREO_ELECTRONICO = @CORREO_ELECTRONICO WHERE PERSONA_ID = @ID
 END;
 GO
 
@@ -233,10 +214,10 @@ GO
 CREATE PROCEDURE Modificar_Clientes
   @ID INT,
   @ID_PERSONA INT,
-  @RUC VARCHAR(20),
+  @RUC VARCHAR(20)
 AS
 BEGIN
-  UPDATE CLIENTES SET PERSONA_ID= @ID_PERSONA,RUC = @RUC WHERE CLIENTE_ID = @ID
+  UPDATE CLIENTES SET PERSONA_ID = @ID_PERSONA,RUC = @RUC WHERE CLIENTE_ID = @ID
 END;
 GO
 
@@ -503,3 +484,51 @@ BEGIN
   WHERE DETALLE_FACTURA_ID = @ID;
 END;
 GO
+
+
+
+/************************************/
+/*             PRUERBAS             */
+/************************************/
+
+
+-----+  prueba de procedimientos para una tabla  +-----
+
+-- Crear una marca
+EXEC Crear_Marcas 'Marca Prueba';
+
+-- Obtener el ID de la marca que acabamos de crear
+DECLARE @IDMarca INT;
+SELECT @IDMarca = MARCA_ID
+FROM MARCAS
+WHERE MARCA = 'Marca Prueba';
+
+-- Modificar la marca
+EXEC Modificar_Marcas @IDMarca, 'Nueva Marca Prueba';
+
+-- Eliminar la marca
+EXEC Eliminar_Marcas @IDMarca;
+
+-- Verificaciones
+SELECT *
+FROM MARCAS
+WHERE MARCA = 'Marca Prueba';
+SELECT *
+FROM MARCAS
+WHERE MARCA_ID = @IDMarca;
+
+-----+  fin prueba de procedimientos para una tabla  +-----
+
+
+-----+  prueba de procedimientos para tablas de tipo cabecera-detalle  +-----
+
+-- Crear productos de prueba
+EXEC Crear_Productos 1, 1, 'Producto Prueba 1', 0, 20000, 0.10;
+EXEC Crear_Productos 1, 1, 'Producto Prueba 2', 0, 25000, 0.10;
+
+-- Crear stocks de prueba
+EXEC Crear_Stocks 1, 1, 20; -- Producto Prueba 1, Depósito 1
+EXEC Crear_Stocks 2, 1, 20; -- Producto Prueba 1, Depósito 2
+EXEC Crear_Stocks 2, 2, 15; -- Producto Prueba 2, Depósito 2
+
+-----+  fin prueba de procedimientos para tablas de tipo cabecera-detalle  +-----
