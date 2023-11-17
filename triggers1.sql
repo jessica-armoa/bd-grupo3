@@ -1,17 +1,10 @@
 GO
 USE grupo3
 GO
-/*------------------TRIGGER QUE ACTUALIZA EL STOCK AL REALIZAR UN SERVICIO------------------*/
-CREATE TRIGGER TR_DETALLES_SERVICIOS_REALIZADOS
-ON DETALLES_PRODUCTOS_UTILIZADOS FOR INSERT 
-AS 
-UPDATE STOCKS SET STOCKS.CANTIDAD_PRODUCTO = STOCKS.CANTIDAD_PRODUCTO - inserted.cantidad from inserted
-JOIN STOCKS S ON S.PRODUCTO_ID = inserted.PRODUCTO_ID
-JOIN PRODUCTOS P ON P.PRODUCTO_ID = inserted.PRODUCTO_ID;
-go
+
 /*------------------TRIGGER QUE HACE LAS TRANSFERENCIAS------------------*/
 
-create trigger TR_detalles_transferencias
+create trigger TR_D_T
 on detalles_transferencias for insert
 AS
 update stocks set stocks.cantidad_producto = stocks.cantidad_producto - inserted.cantidad from inserted
@@ -27,7 +20,7 @@ inner join stocks on stocks.deposito_id = inserted.deposito_destino_id;
 go
 
 /*------------------TRIGGER QUE ACTUALIZA EL STOCK AL REALIZAR UN SERVICIO------------------*/
-CREATE TRIGGER after_insert_detalle_productos
+CREATE TRIGGER TR_STOCKS_DPU
 ON detalles_productos_utilizados
 AFTER INSERT
 AS
@@ -40,6 +33,28 @@ BEGIN
     FROM stocks
     INNER JOIN inserted i ON stocks.producto_id = i.producto_id;
 END
+
+SELECT * FROM STOCKS
+
+insert into servicios_realizados
+  (cliente_id, fecha, descripcion, facturado)
+values
+  (3, '2023-02-11 12:00:00', 'Morena iluminada, lavado y secado', 0);
+
+insert into DETALLES_PRODUCTOS_UTILIZADOS
+  (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
+values
+  (29, 2, 1, 150000, 0.05); -- Morena Iluminada
+
+insert into DETALLES_PRODUCTOS_UTILIZADOS
+  (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
+values
+  (30, 2, 1, 25000, 0.05); -- Lavado
+
+insert into DETALLES_PRODUCTOS_UTILIZADOS
+  (PRODUCTO_ID, SERVICIO_REALIZADO_ID, CANTIDAD, PRECIO_UNITARIO, IVA)
+values
+  (14, 2, 1, 110000, 0.1); -- Tinte miel
 
 /*------------------TRIGGER QUE ACTUALIZA FACTURADO O NO------------------*/
 
@@ -83,4 +98,13 @@ BEGIN
     INNER JOIN inserted i ON dt.transferencia_id = i.transferencia_id;
 END;
 
+SELECT * FROM TRANSFERENCIAS
+
+insert into TRANSFERENCIAS ( DEPOSITO_ORIGEN_ID,DEPOSITO_DESTINO_ID,AUTORIZANTE_ID,FECHA) 
+values 
+(1,2,1,'2023-02-11 9:00:00' )
+
+INSERT INTO DETALLES_TRANSFERENCIAS (TRANSFERENCIA_ID, PRODUCTO_ID, CANTIDAD)
+VALUES 
+(1,1,1)
 
