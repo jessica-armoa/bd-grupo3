@@ -7,9 +7,9 @@ GO
 Clientes que no registraron servicios por rango de fecha:
 Codigo y nombre del cliente, última fecha de servicio realizado. (3)
 (Resolver con procedimiento almacenado)*/
-CREATE PROCEDURE ObtenerClientesSinServicios(
+CREATE PROCEDURE ObtenerClientesSinServicios
   @FechaInicio DATETIME,
-  @FechaFin DATETIME)
+  @FechaFin DATETIME
 AS
 BEGIN
   SELECT
@@ -26,10 +26,10 @@ BEGIN
         (SR.FECHA IS NULL OR SR.FECHA NOT BETWEEN @FechaInicio AND @FechaFin)
   GROUP BY
         C.CLIENTE_ID, P.NOMBRE
-END
+END;
 
 
-DECLARE @FechaInicio DATETIME = '2023-01-01';
-DECLARE @FechaFin DATETIME = '2023-12-31';
+DECLARE @Fecha_inicio DATETIME = '2023-03-11';
+DECLARE @Fecha_fin DATETIME = '2023-04-11';
 
-EXEC ObtenerClientesSinServicios @FechaInicio, @FechaFin;
+EXEC ObtenerClientesSinServicios @Fecha_inicio, @Fecha_fin;

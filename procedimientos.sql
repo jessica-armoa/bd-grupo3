@@ -488,7 +488,7 @@ GO
 
 
 /************************************/
-/*             PRUERBAS             */
+/*              PRUEBAS             */
 /************************************/
 
 
@@ -528,7 +528,8 @@ EXEC Crear_Productos 1, 1, 'Producto Prueba 2', 0, 25000, 0.10;
 
 -- Crear stocks de prueba
 EXEC Crear_Stocks 1, 1, 20; -- Producto Prueba 1, Depósito 1
-EXEC Crear_Stocks 2, 1, 20; -- Producto Prueba 1, Depósito 2
-EXEC Crear_Stocks 2, 2, 15; -- Producto Prueba 2, Depósito 2
+EXEC Crear_Stocks 2, 1, 3; -- Producto Prueba 1, Depósito 2
+EXEC Crear_Stocks 1, 2, 15; -- Producto Prueba 2, Depósito 1
+EXEC Crear_Stocks 2, 2, 4; -- Producto Prueba 2, Depósito 2
 
 -----+  fin prueba de procedimientos para tablas de tipo cabecera-detalle  +-----
