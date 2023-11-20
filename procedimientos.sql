@@ -16,6 +16,7 @@ BEGIN
 END;
 GO
 
+
 GO
 CREATE PROCEDURE Eliminar_Marcas @ID INT
 AS
@@ -494,14 +495,24 @@ GO
 
 -----+  prueba de procedimientos para una tabla  +-----
 
+use grupo3;
+SELECT COLUMN_NAME, COLUMNPROPERTY(object_id(TABLE_SCHEMA + '.' + TABLE_NAME), COLUMN_NAME, 'IsIdentity') AS 'IsIdentity'
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'MARCAS' AND COLUMN_NAME = 'MARCA_ID';
+
 -- Crear una marca
 EXEC Crear_Marcas 'Marca Prueba';
 
 -- Obtener el ID de la marca que acabamos de crear
 DECLARE @IDMarca INT;
+
 SELECT @IDMarca = MARCA_ID
 FROM MARCAS
 WHERE MARCA = 'Marca Prueba';
+
+/*SELECT *
+FROM MARCAS
+WHERE MARCA_ID = @IDMarca;*/
 
 -- Modificar la marca
 EXEC Modificar_Marcas @IDMarca, 'Nueva Marca Prueba';
@@ -526,10 +537,24 @@ WHERE MARCA_ID = @IDMarca;
 EXEC Crear_Productos 1, 1, 'Producto Prueba 1', 0, 20000, 0.10;
 EXEC Crear_Productos 1, 1, 'Producto Prueba 2', 0, 25000, 0.10;
 
+-- Obtener los IDs de los productos creados
+DECLARE @IDProducto1 INT, @IDProducto2 INT;
+
+SELECT @IDProducto1 = producto_id
+  FROM productos
+  WHERE descripcion = 'Producto Prueba 1';
+
+SELECT @IDProducto2 =  producto_id
+  FROM productos
+  WHERE descripcion = 'Producto Prueba 2';
+
 -- Crear stocks de prueba
 EXEC Crear_Stocks 1, 1, 20; -- Producto Prueba 1, Depósito 1
 EXEC Crear_Stocks 2, 1, 3; -- Producto Prueba 1, Depósito 2
 EXEC Crear_Stocks 1, 2, 15; -- Producto Prueba 2, Depósito 1
 EXEC Crear_Stocks 2, 2, 4; -- Producto Prueba 2, Depósito 2
+
+
+
 
 -----+  fin prueba de procedimientos para tablas de tipo cabecera-detalle  +-----
